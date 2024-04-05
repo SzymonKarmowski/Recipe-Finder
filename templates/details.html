@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f7f7;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .recipe-img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            margin: 0 auto;
+        }
+        .recipe-title {
+            font-size: 36px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #8b4513;
+        }
+        .recipe-info {
+            font-size: 18px;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #666;
+        }
+        .recipe-steps {
+            margin-bottom: 20px;
+        }
+        .recipe-steps h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #8b4513;
+        }
+        .recipe-steps ol {
+            list-style-type: decimal;
+            padding-left: 20px;
+        }
+        .recipe-steps li {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="recipe-title">{{details_data.title}}</h1>
+        <div style="text-align: center;"> <!-- Add style here -->
+            <img src="{{details_data.image}}" alt="Recipe Image" class="recipe-img">
+        </div>
+        <div class="recipe-info">
+            <p>Servings: {{ details_data.servings }}</p>
+            <p>Ready in: {{ details_data.readyInMinutes }} minutes</p>
+        </div>
+        <div class="recipe-steps">
+            <h3>Instructions:</h3>
+                {% if details_data.analyzedInstructions %}
+                    {% for instruction in details_data.analyzedInstructions %}
+                        <ol>
+                            {% for step in instruction.steps %}
+                        <li>{{ step.step }}</li>
+                            {% endfor %}
+                        </ol>
+                    {% endfor %}
+                    {% else %}
+                    <p>No instructions available.</p>
+                {% endif %}
+            </div>
+    </div>
+</body>
+</html>
